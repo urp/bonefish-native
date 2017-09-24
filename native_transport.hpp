@@ -31,7 +31,7 @@ public:
     virtual boost::future<void> disconnect() override;
     virtual bool is_connected() const override;
 
-    virtual void send(autobahn::wamp_message&& message) override;
+    virtual void send_message(autobahn::wamp_message&& message) override;
     virtual void set_pause_handler(autobahn::wamp_transport::pause_handler&& handler) override;
     virtual void set_resume_handler(autobahn::wamp_transport::resume_handler&& handler) override;
     virtual void pause() override;

@@ -85,10 +85,10 @@ inline bool native_transport::is_connected() const
     return m_component_endpoint != nullptr;
 }
 
-inline void native_transport::send(autobahn::wamp_message&& message)
+inline void native_transport::send_message(autobahn::wamp_message&& message)
 {
-    auto send_message = m_server_endpoint->get_send_message_handler();
-    send_message(std::move(message.fields()), std::move(message.zone()));
+    auto send_message_handler = m_server_endpoint->get_send_message_handler();
+    send_message_handler(std::move(message.fields()), std::move(message.zone()));
 }
 
 inline void native_transport::set_pause_handler(autobahn::wamp_transport::pause_handler&& handler)
