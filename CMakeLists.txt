@@ -13,21 +13,12 @@ add_library( ${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME} )
 target_include_directories( ${PROJECT_NAME}  
   INTERFACE	
     $<BUILD_INTERFACE: ${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>
+    $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/include>
 )
 
 ### Install and export target set ###
 
 install( TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}-targets
-  ARCHIVE
-    DESTINATION
-      ${CMAKE_INSTALL_LIBDIR}
-  PUBLIC_HEADER
-    DESTINATION 
-      ${CMAKE_INSTALL_INCLUDEDIR}
-  INCLUDES 
-    DESTINATION 
-      ${CMAKE_INSTALL_INCLUDEDIR}
   COMPONENT
     dev
 )
