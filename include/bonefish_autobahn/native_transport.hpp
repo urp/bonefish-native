@@ -16,6 +16,8 @@ class native_connector;
 class native_endpoint;
 } // namespace bonefish
 
+namespace bonefish_autobahn {
+
 class native_transport :
         public autobahn::wamp_transport,
         public std::enable_shared_from_this<native_transport>
@@ -51,5 +53,7 @@ private:
     std::shared_ptr<bonefish::native_endpoint> m_server_endpoint;
     std::shared_ptr<bonefish::native_endpoint> m_component_endpoint;
 };
+
+} // namespace bonefish_autobahn
 
 #include "native_transport.ipp"

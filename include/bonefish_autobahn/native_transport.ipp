@@ -3,7 +3,7 @@
 #include <bonefish/native/native_connector.hpp>
 #include <stdexcept>
 
-inline native_transport::native_transport(
+inline bonefish_autobahn::native_transport::native_transport(
             boost::asio::io_service& io_service,
             const std::shared_ptr<bonefish::native_connector>& connector)
     : wamp_transport()
@@ -15,7 +15,7 @@ inline native_transport::native_transport(
 {
 }
 
-inline boost::future<void> native_transport::connect()
+inline boost::future<void> bonefish_autobahn::native_transport::connect()
 {
     if (m_component_endpoint) {
         boost::promise<void> result;
@@ -68,7 +68,7 @@ inline boost::future<void> native_transport::connect()
     });
 }
 
-inline boost::future<void> native_transport::disconnect()
+inline boost::future<void> bonefish_autobahn::native_transport::disconnect()
 {
     if (!m_component_endpoint) {
         boost::promise<void> result;
@@ -80,38 +80,38 @@ inline boost::future<void> native_transport::disconnect()
     return m_connector->disconnect(m_server_endpoint);
 }
 
-inline bool native_transport::is_connected() const
+inline bool bonefish_autobahn::native_transport::is_connected() const
 {
     return m_component_endpoint != nullptr;
 }
 
-inline void native_transport::send_message(autobahn::wamp_message&& message)
+inline void bonefish_autobahn::native_transport::send_message(autobahn::wamp_message&& message)
 {
     auto send_message_handler = m_server_endpoint->get_send_message_handler();
     send_message_handler(std::move(message.fields()), std::move(message.zone()));
 }
 
-inline void native_transport::set_pause_handler(autobahn::wamp_transport::pause_handler&& handler)
+inline void bonefish_autobahn::native_transport::set_pause_handler(autobahn::wamp_transport::pause_handler&& handler)
 {
     throw std::runtime_error("transport pause handler support not implemneted");
 }
 
-inline void native_transport::set_resume_handler(autobahn::wamp_transport::resume_handler&& handler)
+inline void bonefish_autobahn::native_transport::set_resume_handler(autobahn::wamp_transport::resume_handler&& handler)
 {
     throw std::runtime_error("transport resume handler support not implemneted");
 }
 
-inline void native_transport::pause()
+inline void bonefish_autobahn::native_transport::pause()
 {
     throw std::runtime_error("transport pause support not implemneted");
 }
 
-inline void native_transport::resume()
+inline void bonefish_autobahn::native_transport::resume()
 {
     throw std::runtime_error("transport resume support not implemneted");
 }
 
-inline void native_transport::attach(
+inline void bonefish_autobahn::native_transport::attach(
         const std::shared_ptr<autobahn::wamp_transport_handler>& handler)
 {
     if (m_transport_handler) {
@@ -123,7 +123,7 @@ inline void native_transport::attach(
     m_transport_handler->on_attach(this->shared_from_this());
 }
 
-inline void native_transport::detach()
+inline void bonefish_autobahn::native_transport::detach()
 {
     if (!m_transport_handler) {
         throw std::logic_error("no handler attached");
@@ -133,7 +133,7 @@ inline void native_transport::detach()
     m_transport_handler.reset();
 }
 
-inline bool native_transport::has_handler() const
+inline bool bonefish_autobahn::native_transport::has_handler() const
 {
     return m_transport_handler != nullptr;
 }
