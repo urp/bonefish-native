@@ -3,22 +3,22 @@ cmake_minimum_required( VERSION 3.9 FATAL_ERROR )
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
-project(bonefish-native LANGUAGES CXX VERSION 0.1.0 )
+project( bonefish-native LANGUAGES CXX VERSION 0.1.0 )
 
-### Define library target ###
+# Define library target
 
-add_library( ${PROJECT_NAME} INTERFACE )
-add_library( ${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME} )
+add_library( autobahn-cpp INTERFACE )
+add_library( ${PROJECT_NAME}::autobahn-cpp ALIAS autobahn-cpp )
 
-target_include_directories( ${PROJECT_NAME}
+target_include_directories( autobahn-cpp
   INTERFACE
     $<BUILD_INTERFACE: ${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
-### Install and export target set ###
+# Install and export target set
 
-install( TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}-targets
+install( TARGETS autobahn-cpp EXPORT ${PROJECT_NAME}-targets
   COMPONENT
     dev
 )
@@ -30,7 +30,7 @@ install( DIRECTORY include/
     dev
 )
 
-### Create package config in build directory ###
+# Create package config in build directory
 
 set( build_config_location ${CMAKE_CURRENT_BINARY_DIR} )
 
@@ -57,11 +57,11 @@ configure_package_config_file(
 
 )
 
-### Export build directory into local cmake repository ###
+# Export build directory into local cmake repository
 
 export( PACKAGE ${PROJECT_NAME} )
 
-### Install package config ###
+# Install package config
 
 set( install_config_location ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME} )
 
